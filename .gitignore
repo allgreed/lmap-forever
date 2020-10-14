@@ -1,0 +1,8 @@
+# python compiled
+__pycache__
+
+# nix artifact
+result
+
+# heh
+docker-image.tar.gz
