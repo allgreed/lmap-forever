@@ -7,7 +7,7 @@ PWD = $(shell pwd)
 .PHONY: container run build lint test
 
 run: setup ## run the app
-	PYTHONPATH=$(PWD)/$(SOURCES_DIR) $(WITH_DB) uvicorn src.main:app --reload
+	PYTHONPATH=$(PWD)/$(SOURCES_DIR) STORAGE_PROVIDER_TYPE=memory uvicorn src.main:app --reload --port 12694
 
 build: setup ## create artifact
 	nix build
