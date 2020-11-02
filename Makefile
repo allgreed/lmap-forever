@@ -1,13 +1,15 @@
 .DEFAULT_GOAL := help
 SOURCES_DIR := src
 PWD = $(shell pwd)
+STORAGE := memory
+VARS := ""
 
 # Porcelain
 # ###############
 .PHONY: container run build lint test
 
 run: setup ## run the app
-	PYTHONPATH=$(PWD)/$(SOURCES_DIR) STORAGE_PROVIDER_TYPE=memory uvicorn src.main:app --reload --port 12694
+	PYTHONPATH=$(PWD)/$(SOURCES_DIR) STORAGE_PROVIDER_TYPE=$(STORAGE) $(VARS) uvicorn src.main:app --reload --port 12694
 
 build: setup ## create artifact
 	nix build
