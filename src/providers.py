@@ -6,13 +6,8 @@ from utilities import get_envvar_or_gtfo, gtfo
 
 class StorageProvider(ABC):
     @abstractmethod
-    def initialize(self): 
-        """A hook for per provider startup logic"""
-        raise NotImplementedError("Please implement this")
-
-    @abstractmethod
-    def finalize(self): 
-        """A hook for per provider cleanup logic"""
+    def _initialize(self):
+        """A hook for additional per provider startup logic, which is executed just once, when the provider is started"""
         raise NotImplementedError("Please implement this")
 
     @abstractmethod
@@ -30,10 +25,7 @@ class InMemory(StorageProvider):
     def __init__(self, datastore: Dict):
         self.data = datastore
 
-    def initialize(self):
-        pass
-
-    def finalize(self):
+    def _initialize(self):
         pass
 
     def load(self, name):
@@ -48,16 +40,17 @@ class File(StorageProvider):
     def __init__(self):
         pass
 
-    # def initialize(self):
-        # pass
-
-    # def finalize(self):
-        # pass
+    # def _initialize(self):
+        # ...
 
     # def load(self, name):
+        # ...
 
     # def store(self, name, payload):
+        # ...
 
+
+# TODO: add a contextmanager wrapper for per transaction init / finalize
 
 def setup_storage_provider():
     user_storage_provider = get_envvar_or_gtfo("STORAGE_PROVIDER_TYPE")
@@ -74,4 +67,7 @@ def setup_storage_provider():
 
     # TODO: dehardcode, allow more custom provider initialization
     TREES = {}
-    return storage_provider_class(datastore=TREES)
+    sp = storage_provider_class(datastore=TREES)
+
+    sp._initialize()
+    return sp

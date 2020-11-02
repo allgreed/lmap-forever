@@ -19,20 +19,9 @@ app.add_middleware(
 )
 
 sp = setup_storage_provider()
-sp.initialize()
 
 def get_storage_provider():
-    # TODO: make this whole shit happen on app startup - so that it happens once
-    try:
-        # sp = InMemoryProvider(datastore=TREES)
-        # sp.initialize()
-        yield sp
-    finally:
-        try:
-            pass
-            # sp.finalize()
-        except NameError:
-            pass
+    yield sp
 
 # TODO: dehardcode map name
 # TODO: embedd map name into lmap and test
