@@ -4,7 +4,7 @@ Backing service for lmap, designed for running locally and storing the state
 ## Installation
 
 ### Home-manager
-The recommended installation methid is using [home-manager](TODO), simply copy the following into your `home.nix` and modify the values between `{` and `}`:
+The recommended installation methid is using [home-manager](https://github.com/nix-community/home-manager), simply copy the following into your `home.nix` and modify the values between `{` and `}`:
 ```nix
   systemd.user.services = {
     lmap-forever = {
