@@ -17,7 +17,7 @@ The recommended installation methid is using [home-manager](https://github.com/n
       };
 
       Install = {
-        WantedBy = [ "multi-user.target" ];
+        WantedBy = [ "default.target" ];
       };
 
       Service = {
